@@ -1,0 +1,28 @@
+{
+  "name": "ivanstan/tle-php",
+  "description": "TLE Framework written in PHP and client to NASA TLE API.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ivan Stanojevic",
+      "email": "ivan.stanojevic@protonmail.com"
+    }
+  ],
+  "require": {
+    "myclabs/php-enum": "^1.7",
+    "guzzlehttp/guzzle": "^6.5",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ivanstan\\Tle\\": "src"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit --coverage-text"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8"
+  }
+}
