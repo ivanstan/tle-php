@@ -4,7 +4,7 @@ use Ivanstan\Tle\Helper\SampleTleHelper;
 use Ivanstan\Tle\Specification\PosigradeOrbitSpecification;
 use PHPUnit\Framework\TestCase;
 
-class PosigradeOrbitSpecificationTest extends TestCase
+final class PosigradeOrbitSpecificationTest extends TestCase
 {
     public function testSpecificationIsSatisfied(): void
     {

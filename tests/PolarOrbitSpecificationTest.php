@@ -4,7 +4,7 @@ use Ivanstan\Tle\Helper\SampleTleHelper;
 use Ivanstan\Tle\Specification\PolarOrbitSpecification;
 use PHPUnit\Framework\TestCase;
 
-class PolarOrbitSpecificationTest extends TestCase
+final class PolarOrbitSpecificationTest extends TestCase
 {
     public function testExactInclinationIsTrue(): void
     {

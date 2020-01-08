@@ -4,7 +4,7 @@ use Ivanstan\Tle\Helper\SampleTleHelper;
 use Ivanstan\Tle\Specification\RetrogradeOrbitSpecification;
 use PHPUnit\Framework\TestCase;
 
-class RetrogradeOrbitSpecificationTest extends TestCase
+final class RetrogradeOrbitSpecificationTest extends TestCase
 {
     public function testSpecificationIsSatisfied(): void
     {

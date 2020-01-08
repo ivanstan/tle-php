@@ -1,5 +1,8 @@
 # TLE PHP
 
+[![packagist](https://badgen.net/packagist/name/ivanstan/tle-php)](https://packagist.org/packages/ivanstan/tle-php)
+![licence](https://badgen.net/packagist/license/ivanstan/tle-php)
+
 Client for NASA TLE API (http://api.nasa.gov/) and TLE framework implemented in php.
 
 # About

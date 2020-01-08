@@ -4,7 +4,7 @@ use Ivanstan\Tle\Model\Tle;
 use Ivanstan\Tle\Api;
 use PHPUnit\Framework\TestCase;
 
-class TleApiTest extends TestCase
+final class TleApiTest extends TestCase
 {
     public function testApiReturnsCorrectRecord(): void
     {

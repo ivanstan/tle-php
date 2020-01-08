@@ -10,6 +10,7 @@
     }
   ],
   "require": {
+    "php": "^7.4",
     "myclabs/php-enum": "^1.7",
     "guzzlehttp/guzzle": "^6.5",
     "ext-json": "*"
