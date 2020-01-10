@@ -5,22 +5,17 @@ namespace Ivanstan\Tle\Model;
 use Ivanstan\Tle\Field\InclinationField;
 use Ivanstan\Tle\Field\NameField;
 use Ivanstan\Tle\Field\TleField;
-use Ivanstan\Tle\Service\ChecksumCalculator;
 
 class Tle
 {
     public const LINE1 = 1;
     public const LINE2 = 2;
 
-    public const SATELLITE_UNCLASSIFIED = 'U';
-    public const SATELLITE_CLASSIFIED = 'C';
-    public const SATELLITE_SECRET = 'S';
-
     use NameField;
     use TleField;
     use InclinationField;
 
-    public function __construct(string $line1, string $line2, string $name = null)
+    public function __construct(string $line1, string $line2, ?string $name = null)
     {
         $this->line1 = $line1;
         $this->line2 = $line2;
@@ -148,13 +143,6 @@ class Tle
         $line = $this->getLineByNumber($lineNumber);
 
         return (int)trim(substr($line, 68));
-    }
-
-    public function calculateChecksum(int $lineNumber): int
-    {
-        $line = $this->getLineByNumber($lineNumber);
-
-        return ChecksumCalculator::calculate($line);
     }
 
     private function formatYear(int $twoDigitYear): int
