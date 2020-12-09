@@ -1,8 +1,6 @@
 <?php
 
-namespace Ivanstan\Tle;
-
-use Ivanstan\Tle\Model\Tle;
+namespace Ivanstan\Tle\Model;
 
 class TleFile
 {
