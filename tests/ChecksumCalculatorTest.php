@@ -11,7 +11,7 @@ final class ChecksumCalculatorTest extends TestCase
     {
         $tle = SampleTleHelper::create();
 
-        $this->assertEquals(
+        static::assertEquals(
             $tle->getChecksum(Tle::LINE1),
             ChecksumCalculator::calculate($tle->getLine1()),
             'Assert checksum calculator returned correct value'

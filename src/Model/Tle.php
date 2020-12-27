@@ -40,12 +40,12 @@ class Tle
         return $this->name;
     }
 
-    public function launchYear(?bool $fourDigits = null): int
+    public function launchYear(?bool $fourDigits = true): int
     {
         $year = (int)trim(substr($this->line1, 9, 2));
 
-        if ($fourDigits ?? true) {
-            $this->formatYear($year);
+        if ($fourDigits) {
+            return $this->formatYear($year);
         }
 
         return $year;

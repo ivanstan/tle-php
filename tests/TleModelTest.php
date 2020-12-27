@@ -34,5 +34,17 @@ final class TleModelTest extends TestCase
             $tle->getName(),
             'Assert TLE name is correct'
         );
+
+        static::assertEquals('1998-067NY', $tle->getName(), 'Assert correct name');
+        static::assertEquals('1998', $tle->launchYear(), 'Assert correct launch year four digits');
+        static::assertEquals('98', $tle->launchYear(false), 'Assert correct launch year two digits');
+        static::assertEquals(0.0005785, $tle->eccentricity(), 'Assert correct eccentricity');
+        static::assertEquals(67.0956, $tle->argumentOfPerigee(), 'Assert correct argument of perigee');
+        static::assertEquals(293.0647, $tle->meanAnomaly(), 'Assert correct mean anomaly');
+        static::assertEquals(15.57860024, $tle->meanMotion(), 'Assert correct mean motion');
+        static::assertEquals(334.0891, $tle->raan(), 'Assert correct RAAN');
+        static::assertEquals(18321.21573649, $tle->epoch(), 'Assert correct epoch');
+        static::assertEquals('1 43550U 98067NY  18321.21573649  .00013513  00000-0  18402-3 0  9990', $tle->getLine1(), 'Assert correct first line');
+        static::assertEquals('2 43550  51.6389 334.0891 0005785  67.0956 293.0647 15.57860024 19804', $tle->getLine2(), 'Assert correct second line');
     }
 }

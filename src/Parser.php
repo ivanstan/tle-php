@@ -3,6 +3,7 @@
 namespace Ivanstan\Tle;
 
 /**
+ * @codeCoverageIgnore
  * @deprecated
  */
 class Parser
