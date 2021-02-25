@@ -1,6 +1,6 @@
 <?php
 
-namespace Ivanstan\Tle;
+namespace Ivanstan\Tle\Enum;
 
 abstract class Constant {
 
