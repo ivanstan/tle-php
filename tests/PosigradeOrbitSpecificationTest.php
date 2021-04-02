@@ -12,6 +12,6 @@ final class PosigradeOrbitSpecificationTest extends TestCase
         $tle->setInclination(78);
 
         $specification = new PosigradeOrbitSpecification();
-        $this->assertTrue($specification->isSatisfiedBy($tle), 'Assert posigrade orbit specification is satisfied for 78° inclined orbit');
+        self::assertTrue($specification->isSatisfiedBy($tle), 'Assert posigrade orbit specification is satisfied for 78° inclined orbit');
     }
 }

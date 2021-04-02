@@ -2,9 +2,14 @@
 
 namespace Ivanstan\Tle\Field;
 
+use Doctrine\ORM\Mapping as ORM;
+
 trait InclinationField
 {
-    private float $inclination;
+    /**
+     * @ORM\Column(type="float", precision=16, scale=10, nullable=true)
+     */
+    protected float $inclination;
 
     public function getInclination(): float
     {
