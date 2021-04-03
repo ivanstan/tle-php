@@ -10,4 +10,8 @@ abstract class Constant {
 	 */
 	public const SIDEREAL_DAY_SEC = 86164.0984;
 
+    /**
+     * μ (m3s−2)
+     */
+	public const STANDARD_GRAVITATIONAL_PARAM = 3.986004418e14;
 }
