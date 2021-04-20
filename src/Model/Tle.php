@@ -174,7 +174,13 @@ class Tle
      *
      * @return float
      */
-    public function period(): float {
+    public function period(): float
+    {
         return 86400 / $this->meanMotion();
+    }
+
+    public function isGeostationary(): bool
+    {
+        return (abs($this->meanMotion() - 1.0027) < 0.0002);
     }
 }
