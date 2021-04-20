@@ -174,7 +174,7 @@ class Tle
      *
      * @return float
      */
-    private function period(): float {
+    public function period(): float {
         return 86400 / $this->meanMotion();
     }
 }
