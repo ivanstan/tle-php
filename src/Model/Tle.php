@@ -168,4 +168,13 @@ class Tle
 
         throw new \InvalidArgumentException(\sprintf('Invalid line number %d', $lineNumber));
     }
+
+    /**
+     * Seconds for complete orbit
+     *
+     * @return float
+     */
+    private function period(): float {
+        return 86400 / $this->meanMotion();
+    }
 }
