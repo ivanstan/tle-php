@@ -9,14 +9,14 @@ trait EccentricityField
     /**
      * @ORM\Column(type="float", precision=14, scale=12, nullable=true)
      */
-    protected float $eccentricity;
+    protected ?float $eccentricity;
 
-    public function getEccentricity(): float
+    public function getEccentricity(): ?float
     {
         return $this->eccentricity;
     }
 
-    public function setEccentricity(float $eccentricity): void
+    public function setEccentricity(?float $eccentricity): void
     {
         $this->eccentricity = $eccentricity;
     }
