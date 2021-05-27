@@ -46,6 +46,7 @@ final class TleModelTest extends TestCase
         static::assertEquals(15.57860024, $tle->meanMotion(), 'Assert correct mean motion');
         static::assertEquals(334.0891, $tle->raan(), 'Assert correct RAAN');
         static::assertEquals(18321.21573649, $tle->epoch(), 'Assert correct epoch');
+        self::assertEquals($tle->semiMajorAxis() / 1000, SampleTleHelper::$semiMajorAxis);
         static::assertEquals(
             '1 43550U 98067NY  18321.21573649  .00013513  00000-0  18402-3 0  9990',
             $tle->getLine1(),

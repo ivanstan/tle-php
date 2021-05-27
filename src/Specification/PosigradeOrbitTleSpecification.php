@@ -4,10 +4,10 @@ namespace Ivanstan\Tle\Specification;
 
 use Ivanstan\Tle\Model\Tle;
 
-class RetrogradeOrbitSpecification implements SpecificationInterface
+class PosigradeOrbitTleSpecification implements TleSpecificationInterface
 {
     public function isSatisfiedBy(Tle $tle): bool
     {
-        return $tle->getInclination() > 90;
+        return $tle->getInclination() < 90;
     }
 }

@@ -2,9 +2,11 @@
 
 namespace Ivanstan\Tle\Model;
 
+use Ivanstan\Tle\Enum\Constant;
 use Ivanstan\Tle\Field\InclinationField;
 use Ivanstan\Tle\Field\NameField;
 use Ivanstan\Tle\Field\TleField;
+use Ivanstan\Tle\Specification\GeostationaryOrbitTleSpecification;
 
 class Tle
 {
@@ -23,6 +25,11 @@ class Tle
 
         // calculated fields
         $this->inclination = (float)trim(substr($this->line2, 8, 8));
+    }
+
+    public function inclination(): float
+    {
+        return (float)trim(substr($this->line2, 8, 8));
     }
 
     public function getId(): int
@@ -45,7 +52,18 @@ class Tle
         $year = (int)trim(substr($this->line1, 9, 2));
 
         if ($fourDigits) {
-            return $this->formatYear($year);
+            return self::twoDigitYearToFourDigitYear($year);
+        }
+
+        return $year;
+    }
+
+    public static function twoDigitYearToFourDigitYear(int $year): int
+    {
+        if ($year < 57) {
+            $year += 2000;
+        } else {
+            $year += 1900;
         }
 
         return $year;
@@ -96,15 +114,18 @@ class Tle
         return (float)trim(substr($this->line2, 34, 8));
     }
 
-    public function meanMotion(): float
-    {
-        return (float)trim(substr($this->line2, 52, 11));
-    }
-
+    /**
+     * @deprecated
+     */
     public function getDate(): string
     {
+        return $this->epochDateTime()->format('c');
+    }
+
+    public function epochDateTime(): \DateTime
+    {
         $year = (int)trim(substr($this->line1, 18, 2));
-        $year = $this->formatYear($year);
+        $year = self::twoDigitYearToFourDigitYear($year);
 
         $date = new \DateTime();
         $timezone = new \DateTimeZone('UTC');
@@ -135,7 +156,7 @@ class Tle
 
         $date->setTime($hours, $minutes, $seconds, $milliseconds);
 
-        return $date->format('c');
+        return $date;
     }
 
     public function getChecksum(int $lineNumber): int
@@ -143,17 +164,6 @@ class Tle
         $line = $this->getLineByNumber($lineNumber);
 
         return (int)trim(substr($line, 68));
-    }
-
-    private function formatYear(int $twoDigitYear): int
-    {
-        if ($twoDigitYear < 57) {
-            $twoDigitYear += 2000;
-        } else {
-            $twoDigitYear += 1900;
-        }
-
-        return $twoDigitYear;
     }
 
     private function getLineByNumber(int $lineNumber): string
@@ -179,8 +189,50 @@ class Tle
         return 86400 / $this->meanMotion();
     }
 
+    /**
+     * Revolutions per day
+     */
+    public function meanMotion(): float
+    {
+        return (float)trim(substr($this->line2, 52, 11));
+    }
+
+    /**
+     * @deprecated use GeostationaryOrbitTleSpecification
+     */
     public function isGeostationary(): bool
     {
-        return (abs($this->meanMotion() - 1.0027) < 0.0002);
+        return (new GeostationaryOrbitTleSpecification())->isSatisfiedBy($this);
+    }
+
+    /**
+     * @return float semi major axis in meters (a)
+     */
+    public function semiMajorAxis(): float // meters
+    {
+        $n = $this->meanMotion() * ((2 * M_PI) / 86400); // rad/s
+        $mu = Constant::STANDARD_GRAVITATIONAL_PARAM;
+
+        return ($mu ** (1 / 3)) / ($n ** (2 / 3));
+    }
+
+    /**
+     * @return float semi minor axis in meters (b)
+     */
+    public function semiMinorAxis(): float {
+        $a = $this->semiMajorAxis();
+        $e = $this->inclination();
+
+        return $a * sqrt(1 - ($e ** 2));
+    }
+
+    /**
+     * @return float semi latus rectum in meters (l)
+     */
+    public function semiLatusRectum(): float {
+        $a = $this->semiMajorAxis();
+        $b = $this->semiMinorAxis();
+
+        return ($b ** 2) / $a;
     }
 }

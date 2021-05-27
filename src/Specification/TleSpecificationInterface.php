@@ -4,7 +4,7 @@ namespace Ivanstan\Tle\Specification;
 
 use Ivanstan\Tle\Model\Tle;
 
-interface SpecificationInterface
+interface TleSpecificationInterface
 {
     public function isSatisfiedBy(Tle $tle): bool;
 }

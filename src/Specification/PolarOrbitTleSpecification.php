@@ -4,7 +4,7 @@ namespace Ivanstan\Tle\Specification;
 
 use Ivanstan\Tle\Model\Tle;
 
-class PolarOrbitSpecification implements SpecificationInterface
+class PolarOrbitTleSpecification implements TleSpecificationInterface
 {
     protected float $tolerance;
 
