@@ -219,9 +219,10 @@ class Tle
     /**
      * @return float semi minor axis in meters (b)
      */
-    public function semiMinorAxis(): float {
+    public function semiMinorAxis(): float
+    {
         $a = $this->semiMajorAxis();
-        $e = $this->inclination();
+        $e = $this->eccentricity();
 
         return $a * sqrt(1 - ($e ** 2));
     }
@@ -229,10 +230,23 @@ class Tle
     /**
      * @return float semi latus rectum in meters (l)
      */
-    public function semiLatusRectum(): float {
+    public function semiLatusRectum(): float
+    {
         $a = $this->semiMajorAxis();
         $b = $this->semiMinorAxis();
 
         return ($b ** 2) / $a;
+    }
+
+    /**
+     * ΔΩ rad/s
+     */
+    public function angularPrecessionPerOrbit(): float
+    {
+        $p = $this->semiLatusRectum() / 1000;
+
+        return (-3 * M_PI) * ((Constant::SECOND_ZONAL_COEFFICIENT * (Constant::MEAN_EARTH_RADIUS ** 2)) / ($p ** 2)) * cos(
+                $this->inclination()
+            );
     }
 }
