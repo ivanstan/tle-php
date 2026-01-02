@@ -2,20 +2,21 @@
 
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
+         cacheDirectory=".phpunit.cache"
 >
     <php>
         <ini name="error_reporting" value="-1"/>
     </php>
 
-    <filter>
-        <whitelist>
+    <source>
+        <include>
             <directory>src</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </source>
 
     <testsuites>
         <testsuite name="Project Test Suite">
