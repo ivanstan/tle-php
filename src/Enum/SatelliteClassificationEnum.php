@@ -2,11 +2,9 @@
 
 namespace Ivanstan\Tle\Enum;
 
-use MyCLabs\Enum\Enum;
-
-class SatelliteClassificationEnum extends Enum
+enum SatelliteClassificationEnum: string
 {
-    public const UNCLASSIFIED = 'U';
-    public const CLASSIFIED = 'C';
-    public const SECRET = 'S';
+    case UNCLASSIFIED = 'U';
+    case CLASSIFIED = 'C';
+    case SECRET = 'S';
 }

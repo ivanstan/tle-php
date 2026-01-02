@@ -2,10 +2,8 @@
 
 namespace Ivanstan\Tle\Enum;
 
-use MyCLabs\Enum\Enum;
-
-class OrbitDirectionEnum extends Enum
+enum OrbitDirectionEnum: int
 {
-    public const POSIGRADE = 1;
-    public const RETROGRADE = -1;
+    case POSIGRADE = 1;
+    case RETROGRADE = -1;
 }
