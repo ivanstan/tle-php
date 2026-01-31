@@ -18,4 +18,18 @@ class SunSynchronousOrbitSpecificationTest extends TestCase
         $specification = new SunSynchronousOrbitTleSpecification();
         $this->assertTrue($specification->isSatisfiedBy($tle), 'MIDORI II should satisfy sun-synchronous orbit specification');
     }
+
+    public function testSpecificationIsNotSatisfied(): void
+    {
+        // ISS has a low inclination (~51.6°) and is not sun-synchronous
+        // It has a much faster mean motion (~15.5 rev/day) and different precession characteristics
+        $tle = new Tle(
+            '1 25544U 98067A   21155.52916667  .00002182  00000-0  41420-4 0  9998',
+            '2 25544  51.6461 339.8014 0003357  34.4297 125.4396 15.48919393285582',
+            'ISS (ZARYA)'
+        );
+
+        $specification = new SunSynchronousOrbitTleSpecification();
+        $this->assertFalse($specification->isSatisfiedBy($tle), 'ISS should not satisfy sun-synchronous orbit specification');
+    }
 }

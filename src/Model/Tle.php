@@ -246,7 +246,7 @@ class Tle
         $p = $this->semiLatusRectum() / 1000;
 
         return (-3 * M_PI) * ((Constant::SECOND_ZONAL_COEFFICIENT * (Constant::MEAN_EARTH_RADIUS ** 2)) / ($p ** 2)) * cos(
-                $this->inclination()
+                deg2rad($this->inclination())
             );
     }
 }
