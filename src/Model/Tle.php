@@ -249,4 +249,65 @@ class Tle
                 deg2rad($this->inclination())
             );
     }
+
+    /**
+     * @return float perigee altitude in meters (closest point to Earth's surface)
+     */
+    public function perigeeAltitude(): float
+    {
+        $a = $this->semiMajorAxis();
+        $e = $this->eccentricity();
+        
+        return $a * (1 - $e) - (Constant::MEAN_EARTH_RADIUS * 1000);
+    }
+
+    /**
+     * @return float apogee altitude in meters (farthest point from Earth's surface)
+     */
+    public function apogeeAltitude(): float
+    {
+        $a = $this->semiMajorAxis();
+        $e = $this->eccentricity();
+        
+        return $a * (1 + $e) - (Constant::MEAN_EARTH_RADIUS * 1000);
+    }
+
+    /**
+     * First time derivative of mean motion (rev/day²)
+     * Indicates orbital decay rate
+     */
+    public function firstDerivativeMeanMotion(): float
+    {
+        return (float)trim(substr($this->line1, 33, 10));
+    }
+
+    /**
+     * Parse BSTAR as a float value
+     * BSTAR is stored in TLE as a modified scientific notation
+     */
+    public function bstarFloat(): float
+    {
+        $bstar = $this->bstar();
+        
+        if (empty($bstar) || $bstar === '00000-0' || $bstar === ' 00000-0') {
+            return 0.0;
+        }
+        
+        // BSTAR format: SMMMMM±E where S is sign/space, MMMMM is mantissa, ±E is exponent
+        // Example: " 12345-4" means 0.12345 * 10^-4
+        $sign = 1;
+        if ($bstar[0] === '-') {
+            $sign = -1;
+            $bstar = substr($bstar, 1);
+        } elseif ($bstar[0] === ' ' || $bstar[0] === '+') {
+            $bstar = substr($bstar, 1);
+        }
+        
+        // Find the exponent part (last 2 chars like "-4" or "+3")
+        $expSign = $bstar[-2] === '-' ? -1 : 1;
+        $exp = (int)$bstar[-1];
+        $mantissa = (float)('0.' . substr($bstar, 0, -2));
+        
+        return $sign * $mantissa * pow(10, $expSign * $exp);
+    }
 }

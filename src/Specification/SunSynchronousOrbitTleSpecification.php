@@ -34,9 +34,6 @@ class SunSynchronousOrbitTleSpecification implements TleSpecificationInterface
      * Calculate nodal precession rate in degrees per day.
      * 
      * Formula: ΔΩ = -3π * J₂ * (Rₑ/p)² * cos(i) per orbit
-     * 
-     * Note: Tle::angularPrecessionPerOrbit() has a bug (passes degrees to cos),
-     * so we calculate correctly here using radians.
      */
     private function calculatePrecessionRate(Tle $tle): float
     {

@@ -1,0 +1,35 @@
+<?php
+
+use Ivanstan\Tle\Model\Tle;
+use Ivanstan\Tle\Specification\DecayingOrbitTleSpecification;
+use PHPUnit\Framework\TestCase;
+
+class DecayingOrbitSpecificationTest extends TestCase
+{
+    public function testSpecificationIsSatisfied(): void
+    {
+        // ISS has positive first derivative (decaying orbit due to atmospheric drag)
+        $tle = new Tle(
+            '1 25544U 98067A   21155.52916667  .00002182  00000-0  41420-4 0  9998',
+            '2 25544  51.6461 339.8014 0003357  34.4297 125.4396 15.48919393285582',
+            'ISS (ZARYA)'
+        );
+
+        $specification = new DecayingOrbitTleSpecification(0.00001);
+        $this->assertTrue($specification->isSatisfiedBy($tle), 'ISS should satisfy decaying orbit specification');
+    }
+
+    public function testSpecificationIsNotSatisfied(): void
+    {
+        // GOES-16 has negative/zero first derivative (stable geostationary orbit)
+        $tle = new Tle(
+            '1 41866U 16071A   21155.52066792 -.00000268  00000-0  00000-0 0  9999',
+            '2 41866   0.0182 271.3365 0001158 338.3132  95.7577  1.00271127 17212',
+            'GOES-16'
+        );
+
+        $specification = new DecayingOrbitTleSpecification();
+        $this->assertFalse($specification->isSatisfiedBy($tle), 'Stable geostationary orbit should not satisfy decaying orbit specification');
+    }
+}
+
